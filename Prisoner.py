@@ -30,15 +30,26 @@ for i in range(len(nimet)):
 Rounds = 200
 
 ## ----- Taistelu ----- ##
-def Comparison(a,b): #Totuusarvot tänne
-    if a == True and b == True:
-        return [2,2]
-    if a == False and b == False:
-        return [-2,-2]
-    if a == True and b == False:
-        return [0,2]
-    if a == False and b == True:
-        return [2,0]
+def Comparison(a, b): # 0 = kivi, 1 = paperi, 2 = Sakset
+    if a == b:
+        return [0,0]
+    if a == 0 and b == 1:
+        return [-1,1]
+    if a == 0 and b == 2:
+        return [1,-1]
+    if a == 1 and b == 0:
+        return [1,-1]
+    if a == 1 and b == 2:
+        return [-1,1]
+    if a == 2 and b == 0:
+        return [-1,1]
+    if a == 2 and b == 1:
+        return [1,-1]
+
+A = ["Kivi","Paperi","Sakset"]
+for i in range(len(A)):
+    for k in range(len(A)):
+        print(A[i],"vs",A[k],Comparison(i,k))
 
 PrintRounds = False
 
@@ -67,8 +78,8 @@ for l in range(5):
                 for j in range(Rounds):
                     RndNmb += 1
                     #Hakee liikkeet.
-                    Adata = A.GetBool()
-                    Bdata = B.GetBool()
+                    Adata = A.GetInt()
+                    Bdata = B.GetInt()
                     #Tallentaa liikeet.
                     ActionsA.append(Adata)
                     ActionsB.append(Bdata)

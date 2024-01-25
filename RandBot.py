@@ -15,10 +15,9 @@ def Restart():
     MyMoves = []
     OpponentMoves = []
 
-def GetBool():
-    if random.randint(0,2):
-        return True
-    return False
+def GetInt():
+    return random.randint(0,2)
+
 
 
     

@@ -15,13 +15,13 @@ name = "BOTIN NIMI"
 MyMoves = []
 OpponentMoves = []
 
-def GetBool():
+def GetInt():
     global MyMoves, OpponentMoves
-    #Tämän funktion tulee palauttaa True tai False.
+    #Tämän funktion tulee palutaa 0, 1 tai 2.
     #Saat itse valita miten ohjelma sen päättää.
     #Käytössäsi on molempien pelaajien data aiemmilta kierroksilta.
     #SetData-funktio asettaa listat, joissa on molempien pelaajien aiemmat liikeet.
-    return True
+    return 0
 
 def Restart(): #Resets all the values for a new fight.
     global MyMoves, OpponentMoves
