@@ -34,6 +34,7 @@ def Restart(): #Resets all the values for a new fight.
 
 #Älä muokkaa tai kutus tätä funktiota.
 def SetData(MyData,OpponentData):
+    global MyMoves, OpponentMoves
     MyMoves = MyData
     OpponentMoves = OpponentData    
 
