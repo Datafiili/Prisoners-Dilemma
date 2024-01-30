@@ -10,7 +10,7 @@
 #Resetoinnin tulee resetoida tiedot omista vanhoista liikkeistä ja vastustajan vanhoista liikkeista.
 #Saat myös resetoida muita muuttujia, joita itse olet asettanut.
 
-name = "NiCE a[BOT]"
+name = "NiCE :)"
 
 MyMoves = []
 OpponentMoves = []
