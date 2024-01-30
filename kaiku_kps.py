@@ -23,11 +23,11 @@ def GetInt():
     #SetData-funktio asettaa listat, joissa on molempien pelaajien aiemmat liikeet.
     if(len(OpponentMoves) == 0):
         return 0
-    if(OpponentMoves[len(OpponentMoves) == 0]):
+    if(OpponentMoves[-1]== 0):
         return 0
-    if(OpponentMoves[len(OpponentMoves) == 1]):
+    if(OpponentMoves[-1]== 1):
         return 1
-    if(OpponentMoves[len(OpponentMoves) == 2]):
+    if(OpponentMoves[-1]== 2):
         return 2
 
 def Restart(): #Resets all the values for a new fight.
