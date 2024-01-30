@@ -1,74 +1,54 @@
-## ----- Ohjeet ----- ##
-#Koodin nimi tulee olla oma nimesi.
-#Botin nimen saat keksiä itse, mutta sen tulee olla asiallinen.
-#Botilla on kolme pakollista funktiota:
-#1. GetBool() -> Oma funktiosi, joka palauttaa totuusarvon.
-#Saat itse keksiä valinta perjaatteen.
-#2. SetData(MyData,OpponentData) -> Saat dataa meneillään olevasta taistelusta.
-#3. Restart() -> Resetoi saadun datan.
-#Resetointi tapahtuu aina ennen kun saat uuden vastustajan.
-#Resetoinnin tulee resetoida tiedot omista vanhoista liikkeistä ja vastustajan vanhoista liikkeista.
-#Saat myös resetoida muita muuttujia, joita itse olet asettanut.
+import numpy as np
+import os
+from sklearn.linear_model import LogisticRegression
 
-name = "Vergilius"
+# Luo logistinen regressiomalli
+model = LogisticRegression()
+
+name = "Dante Alighieri"
 
 MyMoves = []
 OpponentMoves = []
 
+def TrainModel():
+    global MyMoves, OpponentMoves
+   
+    # Muunna siirrot numpy-taulukoiksi
+    X = np.array(MyMoves).reshape(-1, 1)
+    y = np.array(OpponentMoves)
+
+    # Kouluta malli
+    model.fit(X, y)
+
 def GetInt():
     global MyMoves, OpponentMoves
-    # Tämän funktion tulee palautaa 0, 1 tai 2.
-    # Pelaajan liikkeen valinta perustuu vastustajan aiempiin liikkeisiin.
-    # Jos vastustajan liikkeet ovat tyhjät, palautetaan 1 (paperi).
-    # Muussa tapauksessa lasketaan vastustajan aiempien liikkeiden määrät.
-    # Palautetaan pelaajan liike sen perusteella, mikä vastustajan liikkeistä on yleisin.
-    if len(OpponentMoves) == 0:
-        return 1
-    
-    k = 0  # kivi
-    p = 0  # paperi
-    s = 0  # sakset
-    
-    if len(OpponentMoves) != 0:
-        
-        for i in range(len(OpponentMoves)):
-            # Laskee vastustajan liikkeiden määrät.
-            # k = kivi, p = paperi, s = sakset.
-            # Jos vastustaja on valinnut kiven, lisätään k:n arvoa yhdellä.
-            if OpponentMoves[i] == 0:
-                k += 1
-            # Jos vastustaja on valinnut paperin, lisätään p:n arvoa yhdellä.  
-            elif OpponentMoves[i] == 1:
-                p += 1
-            # Jos vastustaja on valinnut sakset, lisätään s:n arvoa yhdellä.   
-            elif OpponentMoves[i] == 2:
-                s += 1
-        # Jos k:n arvo on suurempi kuin p:n ja s:n arvot, palautetaan 0 (kivi).       
-        if s > k and s > p:
-            return 0  # sakset
-        
-        # Jos p:n arvo on suurempi kuin k:n ja s:n arvot, palautetaan 2 (paperi).
-        elif p > s and p > k:
-            return 2  # paperi
-        # Jos k:n arvo on suurempi kuin p:n ja s:n arvot, palautetaan 1 (kivi).
-        elif k > s and k > p:
-            return 1  # kivi
-    
-    # Jos k:n, p:n ja s:n arvot ovat yhtä suuret, palautetaan 0 (Kivi).
-    return 0
+    # Kouluta malli, jos siirtoja on tarpeeksi
+    if len(MyMoves) >= 10:
+        TrainModel()
 
+    # Analysoi vastustajan edelliset siirrot
+    if len(OpponentMoves) > 0:
+        last_move = OpponentMoves[-1]
+        # Tee päätös vastustajan viimeisen siirron perusteella
+        if last_move == 0:  # Vastustaja pelasi kiven
+            return 1  # Pelaa paperi
+        elif last_move == 1:  # Vastustaja pelasi paperin
+            return 2  # Pelaa sakset
+        elif last_move == 2:  # Vastustaja pelasi sakset
+            return 0  # Pelaa kivi
+    else:
+        # Ei vastustajan siirtoja vielä, pelaa oletuksena kiveä
+        return 2
 
-def Restart(): #Resets all the values for a new fight.
+def Restart():
     global MyMoves, OpponentMoves
     MyMoves = []
     OpponentMoves = []
-    #Jos jotain omaa resetoitavaa, niin laita se tähän.
+    # Lisää mahdolliset lisäasetukset tähän.
+    
+    ## ----- ÄLÄ KOSKE ALUE ----- ##
 
-
-## ----- ÄLÄ KOSKE ALUE ----- ##
-
-#Älä muokkaa tai kutus tätä funktiota.
+# Älä muokkaa tai kutsu tätä funktiota.
 def SetData(MyData,OpponentData):
-    global MyMoves, OpponentMoves
     MyMoves = MyData
-    OpponentMoves = OpponentData    
+    OpponentMoves = OpponentData
