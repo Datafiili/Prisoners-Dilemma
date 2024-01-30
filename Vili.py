@@ -1,54 +1,54 @@
-import numpy as np
-import os
-from sklearn.linear_model import LogisticRegression
+## ----- Ohjeet ----- ##
+#Koodin nimi tulee olla oma nimesi.
+#Botin nimen saat keksiä itse, mutta sen tulee olla asiallinen.
+#Botilla on kolme pakollista funktiota:
+#1. GetBool() -> Oma funktiosi, joka palauttaa totuusarvon.
+#Saat itse keksiä valinta perjaatteen.
+#2. SetData(MyData,OpponentData) -> Saat dataa meneillään olevasta taistelusta.
+#3. Restart() -> Resetoi saadun datan.
+#Resetointi tapahtuu aina ennen kun saat uuden vastustajan.
+#Resetoinnin tulee resetoida tiedot omista vanhoista liikkeistä ja vastustajan vanhoista liikkeista.
+#Saat myös resetoida muita muuttujia, joita itse olet asettanut.
 
-# Luo logistinen regressiomalli
-model = LogisticRegression()
-
-name = "Dante Alighieri"
+name = "Vergilius"
 
 MyMoves = []
 OpponentMoves = []
 
-def TrainModel():
-    global MyMoves, OpponentMoves
-   
-    # Muunna siirrot numpy-taulukoiksi
-    X = np.array(MyMoves).reshape(-1, 1)
-    y = np.array(OpponentMoves)
-
-    # Kouluta malli
-    model.fit(X, y)
-
 def GetInt():
     global MyMoves, OpponentMoves
-    # Kouluta malli, jos siirtoja on tarpeeksi
-    if len(MyMoves) >= 10:
-        TrainModel()
 
-    # Analysoi vastustajan edelliset siirrot
-    if len(OpponentMoves) > 0:
-        last_move = OpponentMoves[-1]
-        # Tee päätös vastustajan viimeisen siirron perusteella
-        if last_move == 0:  # Vastustaja pelasi kiven
-            return 1  # Pelaa paperi
-        elif last_move == 1:  # Vastustaja pelasi paperin
-            return 2  # Pelaa sakset
-        elif last_move == 2:  # Vastustaja pelasi sakset
-            return 0  # Pelaa kivi
-    else:
-        # Ei vastustajan siirtoja vielä, pelaa oletuksena kiveä
-        return 2
+    # Jos vastustaja ei ole tehnyt vielä yhtään liikettä, palauta 1 (Paperi)
+    if len(OpponentMoves) == 0:
+        return 1  # Paperi
 
-def Restart():
+
+    recent_moves = OpponentMoves[-5:]  
+
+   # Jos vastustaja on tehnyt vain yhden liikkeen, palauta 0 (Kivi)
+    if len(set(recent_moves)) == 1:
+        return (recent_moves[0] + 1) % 3
+
+# Jos vastustaja on tehnyt vain kahta liikettä, palauta 2 (Sakset)
+    move_counts = [recent_moves.count(0), recent_moves.count(1), recent_moves.count(2)]
+
+ 
+    counter_move = (move_counts.index(max(move_counts)) + 1) % 3
+
+    return counter_move
+
+
+def Restart(): #Resets all the values for a new fight.
     global MyMoves, OpponentMoves
     MyMoves = []
     OpponentMoves = []
-    # Lisää mahdolliset lisäasetukset tähän.
-    
-    ## ----- ÄLÄ KOSKE ALUE ----- ##
+    #Jos jotain omaa resetoitavaa, niin laita se tähän.
 
-# Älä muokkaa tai kutsu tätä funktiota.
+
+## ----- ÄLÄ KOSKE ALUE ----- ##
+
+#Älä muokkaa tai kutus tätä funktiota.
 def SetData(MyData,OpponentData):
+    global MyMoves, OpponentMoves
     MyMoves = MyData
-    OpponentMoves = OpponentData
+    OpponentMoves = OpponentData    
