@@ -19,12 +19,13 @@ def GetInt():
     global MyMoves, OpponentMoves
     round_number = len(MyMoves) + 1
 
-    if round_number % 20 == 0:
-        return 2
-    elif round_number % 10 == 0:
-        return 1
-    else:
-        return 0
+    if round_number <= 200:
+        if round_number % 10 == 0:
+            return 1
+        elif round_number % 20 == 0:
+            return 2
+        else:
+            return 0
 
 def Restart():
     global MyMoves, OpponentMoves
