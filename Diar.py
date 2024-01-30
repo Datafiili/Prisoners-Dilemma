@@ -22,17 +22,17 @@ def GetInt():
     B = OpponentMoves.count(1) #Paperi
     C = OpponentMoves.count(2) #Sakset
     
-    
-    Viimeisin = OpponentMoves[-1]
-    Maara = 0
-    for i in range(len(OpponentMoves)-2, -1, -1):
-        if OpponentMoves[i] == Viimeisin:
-            Maara += 1
-        else:
-            break
-    
-    if Maara >= 2:
-        return (Viimeisin +1) % 3
+    if len(OpponentMoves) > 0:
+        Viimeisin = OpponentMoves[-1]
+        Maara = 0
+        for i in range(len(OpponentMoves)-2, -1, -1):
+            if OpponentMoves[i] == Viimeisin:
+                Maara += 1
+            else:
+                break
+        
+        if Maara >= 2:
+            return (Viimeisin +1) % 3
         
     if A >= B and A >= C:
         return 1
