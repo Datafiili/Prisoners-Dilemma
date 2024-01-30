@@ -12,10 +12,16 @@
 #Esim: Aarni.py
 
 ## -------------------- Prisoners Dilemma -------------------- ##
+import os
+
 
 ## ----- Osallistuja lista ----- ##
 #Osallistuja lista eli kaikkien koodien nimet.
-nimet = ["RandBot","RandBot","RandBot"]
+nimet = os.listdir()
+for i in range(len(nimet)):
+    nimet[i] = nimet[i][:-3]
+nimet.remove("Prisoner")
+print(nimet)
 
 #Rakentaa oliot osallistujista
 class Osallistuja:
