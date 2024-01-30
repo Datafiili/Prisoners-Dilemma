@@ -22,7 +22,7 @@ def GetInt():
         return 1  # Paperi
 
     # Anylysoi vihun liikkeet ja muuta omaa strategiaa sen mukaan.
-    recent_moves = OpponentMoves[-3:]  # Katso kolmea viimeisintä liikettä ja adaptoi
+    recent_moves = OpponentMoves[-2:]  # Katso kahta viimeisintä liikettä ja adaptoi
 
     # Jos vihu on toistanut liikkeen, valitse voittava liike.
     if len(set(recent_moves)) == 1:
